@@ -1,0 +1,80 @@
+extends navbar
+
+block content
+    style.
+      div.chart {
+      float:left;
+      height: 250px;
+      }
+      div.full {
+      width: 100%;
+      }
+      div.half {
+      width: 50%;
+      }
+    script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
+    script.
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+      var netdata = '#{netdata}/api/v1/data?after=-60&format=datasource&options=nonzero&chart=';
+      // define all the charts you need
+      var mycharts = [
+      {
+      div: 'chart1_div',
+      chart: 'cgroup_qemu_#{name}.cpu',
+      type: 'stacked',
+      options: { // these are google chart options
+      title: '#{name} cpu usage',
+      vAxis: {minValue: 100, format: '# percent'}
+      }
+      },
+      {
+      div: 'chart2_div',
+      chart: 'cgroup_qemu_#{name}.mem_usage',
+      type: 'area',
+      options: { // these are google chart options
+      title: '#{name} memory usage',
+      vAxis: {format: '# MB'},
+      }
+      },
+      {
+      div: 'chart3_div',
+      chart: 'cgroup_qemu_#{name}.io',
+      type: 'line',
+      options: { // these are google chart options
+      title: '#{name} I/O use',
+      vAxis: {format: '# kB/s'},
+      }
+      }
+      ];
+      // initialize the google charts
+      var len = mycharts.length;
+      while(len--) {
+      mycharts[len].query = new google.visualization.Query(netdata + mycharts[len].chart, {sendMethod: 'auto'});
+      switch(mycharts[len].type) {
+      case 'stacked':
+      mycharts[len].options.isStacked = 'absolute';
+      // no break here - render it as area chart
+      case 'area':
+      mycharts[len].gchart = new google.visualization.AreaChart(document.getElementById(mycharts[len].div));
+      break;
+      default:
+      mycharts[len].gchart = new google.visualization.LineChart(document.getElementById(mycharts[len].div));
+      break;
+      }
+      }
+      function refreshChart(c) {
+      c.query.send(function(data) {
+      c.gchart.draw(data.getDataTable(), c.options);
+      });
+      }
+      setInterval(function() {
+      var len = mycharts.length;
+      while(len--) refreshChart(mycharts[len]);
+      }, 1000);
+      }
+    #chart1_div.chart.full
+    #chart2_div.chart.half
+    #chart3_div.chart.half
+    p powered by netdata ─=≡Σ((( つ•̀ω•́)つ LET’SGO!

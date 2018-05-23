@@ -1,0 +1,14 @@
+{
+  "datastore": "/var/lib/libvirt/images/",
+  "vncpw": "rand",
+  "showvncpw": true,
+  "mainnetworkif": "enp11s0f0",
+  "host": "qemu:///system",
+  "ip": "172.30.1.13",
+  "port": "8443",
+  "netdata": "https://172.30.1.13",
+  "combined_cert": "/home/kowalskyp/src/zerbarus2/ssl/combined.pem",
+  "cert": "/home/kowalskyp/src/zerbarus2/ssl/cert.pem",
+  "key": "/home/kowalskyp/src/zerbarus2/ssl/key.pem"
+}
+

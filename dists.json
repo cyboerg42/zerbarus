@@ -1,0 +1,7 @@
+{
+  "debian_j": { "location": "http://ftp.at.debian.org/debian/dists/jessie/main/installer-amd64/", "osType": "linux", "name": "Debian Jessie" },
+  "cent_7": { "location": "http://mirror.i3d.net/pub/centos/7/os/x86_64/", "osType": "linux", "name": "CentOS 7" },
+  "ubuntu16_04": { "location": "http://archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/", "osType": "linux", "name": "Ubuntu 16.04" },
+  "ubuntu17_10": { "location": "http://archive.ubuntu.com/ubuntu/dists/artful/main/installer-amd64/", "osType": "linux", "name": "Ubuntu 17.10" }
+}
+

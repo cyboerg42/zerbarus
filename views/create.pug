@@ -1,0 +1,61 @@
+extends navbar
+
+block content
+  script(type='text/javascript', src='https://code.jquery.com/jquery-1.11.0.min.js')
+  script(type='text/javascript').
+    $(document).ready(function(){$("#button").click(function(e) {  var cpuval = $("#cpu").val();var ramval = $("#ram").val();var macval = $("#mac").val();var dropdistval = $("#dropdist").val();var hddval = $("#hdd").val();var nameval = $("#name").val();window.location.href="/deploy?vname="+nameval+"&ram="+ramval+"&cpu="+cpuval+"&hdd="+hddval+"&dist="+dropdistval+"&mac="+macval;});});
+  script.
+    var xhr = new XMLHttpRequest({mozSystem: true});
+    xhr.open("GET", "/getdists", true);
+    xhr.send();
+    xhr.onreadystatechange = processRequest;
+    function processRequest(e) {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+    var tmp = JSON.parse(xhr.responseText);
+    var select = document.getElementById("dropdist");
+    for(var key in tmp){
+    if(tmp.hasOwnProperty(key)) {
+    console.info(key + ': ' + tmp[key]["osType"]);
+    var option = document.createElement('option');
+    option.text = tmp[key]["name"];
+    option.value = key;
+    select.add(option, 0);
+    }
+    }
+    }
+    }
+  
+  h3 Create new VM </h3>
+    p here you can deploy a new VM on the host...
+    br
+    p
+      input#name(type='text', value='derpian')
+      br
+      | Name
+      br
+      br
+      input#cpu(type='text', value='1')
+      br
+      | vCPUs
+      br
+      br
+      input#ram(type='text', value='768')
+      br
+      | RAM (MiB)
+      br
+      br
+      input#hdd(type='text', value='20')
+      br
+      | HDD (GiB)
+      br
+      br
+      input#mac(type='text', value='52:54:00:06:d9:30')
+      br
+      | MAC
+      br
+    p
+      | Distro --> 
+      select#dropdist(name='distros')
+    br
+    p
+      button#button(type='button') Create Me!
