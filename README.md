@@ -1,6 +1,6 @@
-# zerbarus2
+# zerbarus
 
-libvirtd mgmt in nodejs! now v2.0 ;D
+libvirtd mgmt in nodejs!
 
 still buggy and not ready for production use. at this stage of garbage code - it will need another rewrite
 
