@@ -4,6 +4,8 @@ libvirtd mgmt in nodejs!
 
 still buggy and not ready for production use. at this stage of garbage code - it will need another rewrite
 
+so for gods sake - please use Proxmox. This is most likely rly broken now. But feel free to look at this hack...
+
 ## Milestones
 
 1. websockets -> NOPE
